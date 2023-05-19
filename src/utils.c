@@ -18,15 +18,8 @@ void **alloc_matrix(int lines, int columns, int item_size)
     void **matrix = alloc_array(lines, sizeof(void *));
     matrix[0] = alloc_array(lines * columns, item_size);
     for (int i = 0; i < lines; i++)
-        matrix[i] = matrix[0] + i * columns;
+        matrix[i] = matrix[0] + i * columns * item_size;
     return matrix;
-}
-
-void free_matrix(void **matrix, int lines)
-{
-    for (int i = 0; i < lines; i++)
-        free(matrix[i]);
-    free(matrix);
 }
 
 void print_float_array(float *array, int size)
@@ -34,4 +27,10 @@ void print_float_array(float *array, int size)
     for (int i = 0; i < size; i++)
         printf("%f ", array[i]);
     printf("\n");
+}
+
+void free_matrix(void **matrix)
+{
+    free(matrix[0]);
+    free(matrix);
 }

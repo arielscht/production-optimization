@@ -42,3 +42,37 @@ void print_production(ProductionInput *production)
     for (int i = 0; i < production->productsQty; i++)
         print_float_array(production->productsRecipe[i], production->compositesQty);
 }
+
+void get_objective_function(ProductionInput *production)
+{
+    float compositesCost;
+
+    printf("max: ");
+    for (int i = 0; i < production->productsQty; i++)
+    {
+        printf("%fx%d", production->productsValue[i], i + 1);
+        if (i != production->productsQty - 1)
+            printf(" + ");
+    }
+
+    for (int i = 0; i < production->productsQty; i++)
+    {
+        compositesCost = 0;
+        for (int j = 0; j < production->compositesQty; j++)
+        {
+            compositesCost += production->productsRecipe[i][j] * production->compositesCost[j];
+        }
+        printf(" - %fx%d", compositesCost, i + 1);
+    }
+
+    printf(";\n");
+}
+
+void free_production(ProductionInput *production)
+{
+    free_matrix((void *)production->productsRecipe);
+    free(production->productsValue);
+    free(production->compositesCost);
+    free(production->compositesLimit);
+    free(production);
+}
