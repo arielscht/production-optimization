@@ -68,6 +68,23 @@ void get_objective_function(ProductionInput *production)
     printf(";\n");
 }
 
+void get_constraints(ProductionInput *production)
+{
+    for (int i = 0; i < production->compositesQty; i++)
+    {
+        for (int j = 0; j < production->productsQty; j++)
+        {
+            printf("%fx%d", production->productsRecipe[j][i], j + 1);
+            if (j != production->productsQty - 1)
+                printf(" + ");
+        }
+        printf(" <= %f;\n", production->compositesLimit[i]);
+    }
+
+    for (int i = 0; i < production->productsQty; i++)
+        printf("x%d >= 0;\n", i + 1);
+}
+
 void free_production(ProductionInput *production)
 {
     free_matrix((void *)production->productsRecipe);

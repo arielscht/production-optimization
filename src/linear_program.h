@@ -16,6 +16,8 @@ void print_production(ProductionInput *production);
 
 void get_objective_function(ProductionInput *production);
 
+void get_constraints(ProductionInput *production);
+
 void free_production(ProductionInput *production);
 
 #endif

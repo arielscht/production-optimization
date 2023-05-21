@@ -13,9 +13,8 @@ int main()
         return 1;
     }
 
-    // print_production(production);
-
     get_objective_function(production);
+    get_constraints(production);
 
     free_production(production);
     return 0;
